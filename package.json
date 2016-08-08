@@ -6,11 +6,11 @@
     "clustering"
   ],
   "author": "Andres Castillo",
-  "repository": "ml/simple-clustering",
+  "repository": "mljs/simple-clustering",
   "bugs": {
-    "url": "https://github.com/ml/simple-clustering/issues"
+    "url": "https://github.com/mljs/simple-clustering/issues"
   },
-  "homepage": "https://github.com/ml/simple-clustering",
+  "homepage": "https://github.com/mljs/simple-clustering",
   "license": "MIT",
   "main": "./src/index.js",
   "directories": {

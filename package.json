@@ -19,6 +19,7 @@
   },
   "scripts": {
     "test": "mocha --require should --reporter mocha-better-spec-reporter --recursive",
+    "fix": "eslint src --fix",
     "build": "cheminfo build --no-uglify"
   },
   "devDependencies": {

@@ -11,16 +11,21 @@ const defOptions = {
 //TODO Consider a matrix of distances too
 module.exports = function fullClusterGenerator(conMat, opt) {
     const options = Object.assign({}, defOptions, opt);
-    var clList, i, j, k;
+    let clList;
     if (typeof conMat[0] === 'number') {
-        clList = fullClusterGeneratorVector(conMat);
+        // For very large matrices this is a bad idea:
+        let conn = new Array(conMat.length);
+        for(let i = 0; i < conMat.length; i++) {
+            conn[i] = conMat[i] > options.threshold ? 1 : 0;
+        }
+        clList = fullClusterGeneratorVector(conn);
     } else {
         if (typeof conMat[0] === 'object') {
             let nRows = conMat.length;
             let conn = new Array(nRows * (nRows + 1) / 2);
             let index = 0;
-            for (var i = 0;i < nRows;i++) {
-                for (var j = i;j < nRows;j++) {
+            for (let i = 0;i < nRows;i++) {
+                for (let j = i;j < nRows;j++) {
                     if (conMat[i][j] > options.threshold) {
                         conn[index++] = 1;
                     } else {
@@ -33,9 +38,9 @@ module.exports = function fullClusterGenerator(conMat, opt) {
     }
     if (options.out === 'indexes' || options.out === 'values') {
         let result = new Array(clList.length);
-        for (i = 0;i < clList.length;i++) {
+        for (let i = 0;i < clList.length;i++) {
             result[i] = [];
-            for (j = 0;j < clList[i].length;j++) {
+            for (let j = 0;j < clList[i].length;j++) {
                 if (clList[i][j] !== 0) {
                     result[i].push(j);
                 }
@@ -43,11 +48,11 @@ module.exports = function fullClusterGenerator(conMat, opt) {
         }
         if (options.out === 'values') {
             let resultAsMatrix = new Array(result.length);
-            for (i = 0; i < result.length;i++) {
+            for (let i = 0; i < result.length;i++) {
                 resultAsMatrix[i] = new Array(result[i].length);
-                for (j = 0; j < result[i].length; j++) {
+                for (let j = 0; j < result[i].length; j++) {
                     resultAsMatrix[i][j] = new Array(result[i].length);
-                    for (k = 0; k < result[i].length; k++) {
+                    for (let k = 0; k < result[i].length; k++) {
                         resultAsMatrix[i][j][k] = conMat[result[i][j]][result[i][k]];
                     }
                 }

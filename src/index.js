@@ -11,7 +11,7 @@ const defOptions = {
 //TODO Consider a matrix of distances too
 module.exports = function fullClusterGenerator(conMat, opt) {
     const options = Object.assign({}, defOptions, opt);
-    let clList;
+    let clList = [];
     if (typeof conMat[0] === 'number') {
         // For very large matrices this is a bad idea:
         let conn = new Array(conMat.length);

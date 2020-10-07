@@ -11,22 +11,44 @@
     "url": "https://github.com/mljs/simple-clustering/issues"
   },
   "homepage": "https://github.com/mljs/simple-clustering",
-  "license": "MIT",
-  "main": "./src/index.js",
-  "directories": {
-    "lib": "src",
-    "test": "test"
+  "jest": {
+    "testEnvironment": "node"
   },
+  "prettier": {
+    "arrowParens": "always",
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "all"
+  },
+  "license": "MIT",
+  "main": "lib/index.js",
+  "module": "src/index.js",
+  "files": [
+    "lib",
+    "src"
+  ],
   "scripts": {
-    "test": "mocha --require should --reporter mocha-better-spec-reporter --recursive",
-    "fix": "eslint src --fix",
-    "build": "cheminfo build --no-uglify"
+    "test": "npm run test-coverage && npm run eslint",
+    "test-only": "jest",
+    "test-coverage": "jest --coverage",
+    "eslint": "eslint src",
+    "eslint-fix": "npm run eslint -- --fix",
+    "build": "rollup -c && cheminfo-build --root simpleClustering",
+    "compile": "rollup -c"
   },
   "devDependencies": {
-    "mocha-better-spec-reporter": "^3.0.1",
-    "mocha": "^3.1.2",
-    "should": "^11.1.1",
-    "cheminfo-tools": "1.11.0"
+    "@babel/plugin-transform-modules-commonjs": "^7.10.4",
+    "jest": "^26.5.2",
+    "eslint": "^7.7.0",
+    "eslint-config-cheminfo": "^3.0.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jest": "^23.20.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.0.5",
+    "cheminfo-build": "^1.1.6",
+    "rollup": "^2.28.2"
   },
-  "dependencies": {}
+  "dependencies": {
+  }
 }

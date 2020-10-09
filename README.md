@@ -1,7 +1,6 @@
 # simple-clustering
-<p align="center">
-Finds the isolated clusters from a similarity/connectivity matrix
-</p>
+
+Finds the isolated clusters from a similarity/connectivity matrix.
 
 The input could be a matrix (array of arrays) or it could be a single array containing the values of the upper triangular of that matrix.
 
@@ -32,7 +31,7 @@ In order to get a general idea of the problem you could also check the [Wikipedi
 ## Examples
 
 ```js
-const { simpleClustering } = require('ml-ml-simple-clustering');
+const { simpleClustering } = require('ml-simple-clustering');
 
 let matrix = [
   [1, 2, 0, 0],

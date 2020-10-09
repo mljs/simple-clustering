@@ -1,21 +1,29 @@
-export function simpleClustering(conMat, options) {
+/**
+ *
+ * @param {Array || Array<Array>} dataMatrix - Similarity/connectivity matrix or array representing the upper triangular of the matrix.
+ * @param {Object} [options = {}] - options.
+ * @param {Number} [options.threshold = 0] - threshold to ignore an element value
+ * @param {String} [options.out = 'assignment'] - Output type, it could to have value of 'assignment', 'values', 'indexes
+ */
+
+export function simpleClustering(dataMatrix, options = {}) {
   const { threshold = 0, out = 'assignment' } = options;
   let clList = [];
-  if (typeof conMat[0] === 'number') {
+  if (typeof dataMatrix[0] === 'number') {
     // For very large matrices this is a bad idea:
-    let conn = new Array(conMat.length);
-    for (let i = 0; i < conMat.length; i++) {
-      conn[i] = conMat[i] > threshold ? 1 : 0;
+    let conn = new Array(dataMatrix.length);
+    for (let i = 0; i < dataMatrix.length; i++) {
+      conn[i] = dataMatrix[i] > threshold ? 1 : 0;
     }
     clList = fullClusterGeneratorVector(conn);
   } else {
-    if (typeof conMat[0] === 'object') {
-      let nRows = conMat.length;
+    if (typeof dataMatrix[0] === 'object') {
+      let nRows = dataMatrix.length;
       let conn = new Array((nRows * (nRows + 1)) / 2);
       let index = 0;
       for (let i = 0; i < nRows; i++) {
         for (let j = i; j < nRows; j++) {
-          if (conMat[i][j] > threshold) {
+          if (dataMatrix[i][j] > threshold) {
             conn[index++] = 1;
           } else {
             conn[index++] = 0;
@@ -42,7 +50,7 @@ export function simpleClustering(conMat, options) {
         for (let j = 0; j < result[i].length; j++) {
           resultAsMatrix[i][j] = new Array(result[i].length);
           for (let k = 0; k < result[i].length; k++) {
-            resultAsMatrix[i][j][k] = conMat[result[i][j]][result[i][k]];
+            resultAsMatrix[i][j][k] = dataMatrix[result[i][j]][result[i][k]];
           }
         }
       }

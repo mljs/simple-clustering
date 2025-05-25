@@ -1,4 +1,6 @@
-import { simpleClustering } from '..';
+import { describe, expect, it } from 'vitest';
+
+import { simpleClustering } from '../index.js';
 
 describe('Test', () => {
   it('Simple matrix', () => {
@@ -41,11 +43,6 @@ describe('Test', () => {
   });
 
   it('Clusters a simple similarity matrix and outputs indexes', () => {
-    let options = {
-      threshold: 0,
-      out: 'indexes',
-    };
-
     let matrix = [
       [1, 1, 0, 0, 0, 0],
       [1, 1, 0, 0, 0, 0],
@@ -55,7 +52,10 @@ describe('Test', () => {
       [0, 0, 0, 0, 1, 1],
     ];
 
-    let values = simpleClustering(matrix, options);
+    let values = simpleClustering(matrix, {
+      threshold: 0,
+      out: 'indexes',
+    });
 
     expect(values).toStrictEqual([
       [0, 1],
@@ -65,11 +65,6 @@ describe('Test', () => {
   });
 
   it('Clusters a more complex similarity matrix and outputs indexes', () => {
-    let options = {
-      threshold: 0,
-      out: 'indexes',
-    };
-
     let matrix = [
       [1.0, 1.0, 0.0, 0.0, 0.0, 0.0],
       [1.0, 1.0, 0.0, 0.0, 0.0, 0.0],
@@ -79,7 +74,10 @@ describe('Test', () => {
       [0.0, 0.0, 0.0, 0.0, 0.3, 1.0],
     ];
 
-    let values = simpleClustering(matrix, options);
+    let values = simpleClustering(matrix, {
+      threshold: 0,
+      out: 'indexes',
+    });
 
     expect(values).toStrictEqual([
       [0, 1],
@@ -89,11 +87,6 @@ describe('Test', () => {
   });
 
   it('Clusters a similarity matrix with several permutations and threshold above 0', () => {
-    let options = {
-      threshold: 0.3,
-      out: 'indexes',
-    };
-
     let matrix = [
       [1.0, 0.2, 1.0, 0.1, 0.0, 0.2],
       [0.2, 1.0, 0.2, 0.3, 0.7, 0.1],
@@ -103,42 +96,24 @@ describe('Test', () => {
       [0.2, 0.0, 0.0, 0.3, 0.0, 1.0],
     ];
 
-    let values = simpleClustering(matrix, options);
+    let values = simpleClustering(matrix, {
+      threshold: 0.3,
+      out: 'indexes',
+    });
 
     expect(values).toStrictEqual([[0, 2], [1, 4], [3], [5]]);
   });
 
   it('Clusters a vector representing a similarity matrix with a threshold above 0', () => {
-    let options = {
-      threshold: 0.3,
-      out: 'indexes',
-    };
-
     let vector = [
-      1.0,
-      0.2,
-      1.0,
-      0.1,
-      0.0,
-      0.2,
-      1.0,
-      0.2,
-      0.3,
-      0.7,
-      0.1,
-      1.0,
-      0.0,
-      0.1,
-      0.0,
-      1.0,
-      0.0,
-      0.3,
-      1.0,
-      0.0,
-      1.0,
+      1.0, 0.2, 1.0, 0.1, 0.0, 0.2, 1.0, 0.2, 0.3, 0.7, 0.1, 1.0, 0.0, 0.1, 0.0,
+      1.0, 0.0, 0.3, 1.0, 0.0, 1.0,
     ];
 
-    let values = simpleClustering(vector, options);
+    let values = simpleClustering(vector, {
+      threshold: 0.3,
+      out: 'indexes',
+    });
 
     expect(values).toStrictEqual([[0, 2], [1, 4], [3], [5]]);
   });

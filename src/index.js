@@ -1,11 +1,11 @@
 /**
  *
- * @param {Array || Array<Array>} dataMatrix - Similarity/connectivity matrix or array representing the upper triangular of the matrix.
- * @param {Object} [options = {}] - options.
- * @param {Number} [options.threshold = 0] - threshold to ignore an element value
- * @param {String} [options.out = 'assignment'] - Output type, it could to have value of 'assignment', 'values', 'indexes
+ * @param {number[] | number[][]} dataMatrix - Similarity/connectivity matrix or array representing the upper triangular of the matrix.
+ * @param {object} [options = {}] - options.
+ * @param {number} [options.threshold = 0] - threshold to ignore an element value
+ * @param {'assignment' | 'indexes' | 'values'} [options.out = 'assignment'] - Output type, it could to have value of 'assignment', 'values', 'indexes
+ * @returns {number[][]}
  */
-
 export function simpleClustering(dataMatrix, options = {}) {
   const { threshold = 0, out = 'assignment' } = options;
   let clList = [];
@@ -13,25 +13,24 @@ export function simpleClustering(dataMatrix, options = {}) {
     // For very large matrices this is a bad idea:
     let conn = new Array(dataMatrix.length);
     for (let i = 0; i < dataMatrix.length; i++) {
+      // @ts-ignore
       conn[i] = dataMatrix[i] > threshold ? 1 : 0;
     }
     clList = fullClusterGeneratorVector(conn);
-  } else {
-    if (typeof dataMatrix[0] === 'object') {
-      let nRows = dataMatrix.length;
-      let conn = new Array((nRows * (nRows + 1)) / 2);
-      let index = 0;
-      for (let i = 0; i < nRows; i++) {
-        for (let j = i; j < nRows; j++) {
-          if (dataMatrix[i][j] > threshold) {
-            conn[index++] = 1;
-          } else {
-            conn[index++] = 0;
-          }
+  } else if (typeof dataMatrix[0] === 'object') {
+    let nRows = dataMatrix.length;
+    let conn = new Array((nRows * (nRows + 1)) / 2);
+    let index = 0;
+    for (let i = 0; i < nRows; i++) {
+      for (let j = i; j < nRows; j++) {
+        if (dataMatrix[i][j] > threshold) {
+          conn[index++] = 1;
+        } else {
+          conn[index++] = 0;
         }
       }
-      clList = fullClusterGeneratorVector(conn);
     }
+    clList = fullClusterGeneratorVector(conn);
   }
   if (out === 'indexes' || out === 'values') {
     let result = new Array(clList.length);
@@ -85,7 +84,7 @@ function fullClusterGeneratorVector(conn) {
         nextAv++;
       }
     } else {
-      nextAv = toInclude.splice(0, 1);
+      nextAv = toInclude.splice(0, 1)[0];
     }
     cluster[nextAv] = 1;
     available[nextAv] = 0;

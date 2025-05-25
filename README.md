@@ -11,7 +11,6 @@ By default the function returns a clustering matrix: It is a binary row wise mat
 `$ npm install ml-simple-clustering`
 
 ## Usage
-### As an ES module
 
 ```js
 import { simpleClustering } from 'ml-simple-clustering';
@@ -19,15 +18,10 @@ import { simpleClustering } from 'ml-simple-clustering';
 const clusters = simpleClustering(dataMatrix, options);
 ```
 
-### As a CommonJS module
+## [API Documentation](https://mljs.github.io/simple-clustering)
 
-```js
-const { simpleClustering } = require('ml-simple-clustering');
-
-const clusters = simpleClustering(dataMatrix, options);
-```
-## [API Documentation](https://mljs.github.io/simpleClustering/docs/globals.html)
 In order to get a general idea of the problem you could also check the [Wikipedia article](https://en.wikipedia.org/wiki/Flood_fill).
+
 ## Examples
 
 ```js

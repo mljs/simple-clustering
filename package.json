@@ -2,6 +2,9 @@
   "name": "ml-simple-clustering",
   "version": "0.1.0",
   "description": "Extracts the isolated sub-blocs of matrix",
+  "license": "MIT",
+  "type": "module",
+  "exports": "./lib/index.js",
   "keywords": [
     "clustering"
   ],
@@ -11,49 +14,31 @@
     "url": "https://github.com/mljs/simple-clustering/issues"
   },
   "homepage": "https://github.com/mljs/simple-clustering",
-  "jest": {
-    "testEnvironment": "node"
-  },
-  "prettier": {
-    "arrowParens": "always",
-    "semi": true,
-    "singleQuote": true,
-    "tabWidth": 2,
-    "trailingComma": "all"
-  },
-  "license": "MIT",
-  "main": "lib/index.js",
-  "module": "src/index.js",
   "files": [
     "lib",
     "src"
   ],
   "scripts": {
-    "test": "npm run test-coverage && npm run eslint",
-    "test-only": "jest",
-    "test-coverage": "jest --coverage",
-    "build-docs": "typedoc --out docs --name \"ml-simple-clustering\" --mode file --includeDeclarations --excludeExternals --hideGenerator --excludePrivate --moduleResolution node simple-clustering.d.ts",
-    "eslint": "eslint src",
+    "check-types": "tsc --noEmit",
+    "clean": "rimraf lib",
+    "eslint": "eslint .",
     "eslint-fix": "npm run eslint -- --fix",
-    "build": "rollup -c && cheminfo-build --root simpleClustering",
-    "compile": "rollup -c"
+    "prepack": "npm run tsc",
+    "prettier": "prettier --check .",
+    "prettier-write": "prettier --write .",
+    "test": "npm run test-only && npm run check-types && npm run eslint && npm run prettier",
+    "test-only": "vitest run --coverage",
+    "tsc": "npm run clean && npm run tsc-build",
+    "tsc-build": "tsc --project tsconfig.build.json"
   },
   "devDependencies": {
-    "@babel/plugin-transform-modules-commonjs": "^7.10.4",
-    "@babel/preset-env": "^7.11.5",
-    "babel-jest": "^26.5.2",
-    "cheminfo-build": "^1.1.6",
-    "eslint": "^7.7.0",
-    "eslint-config-cheminfo": "^3.0.0",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jest": "^23.20.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "jest": "^26.5.2",
-    "prettier": "^2.0.5",
-    "rollup": "^2.28.2"
-  },
-  "dependencies": {
-    "typedoc": "^0.19.2",
-    "typescript": "^4.0.3"
+    "@types/node": "^22.15.21",
+    "@vitest/coverage-v8": "^3.1.4",
+    "eslint": "^9.27.0",
+    "eslint-config-cheminfo-typescript": "^18.0.1",
+    "prettier": "^3.5.3",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.4"
   }
 }

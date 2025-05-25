@@ -1,6 +1,6 @@
 {
   "name": "ml-simple-clustering",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Extracts the isolated sub-blocs of matrix",
   "license": "MIT",
   "type": "module",
